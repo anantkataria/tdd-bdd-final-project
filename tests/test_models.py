@@ -208,7 +208,7 @@ class TestProductModel(unittest.TestCase):
         dict.pop("available")
         self.assertRaises(DataValidationError, product.deserialize, dict)
         dict["available"] = availability
-        price = dict["price"]
+        # price = dict["price"]
         dict["price"] = None
         self.assertRaises(DataValidationError, product.deserialize, dict)
 
