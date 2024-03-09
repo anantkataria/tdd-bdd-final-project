@@ -185,3 +185,41 @@ class TestProductModel(unittest.TestCase):
         self.assertEqual(found.count(), count)
         for product in found:
             self.assertEqual(product.category, category)
+
+    def test_serialize(self):
+        """It should be able to serialize to a dictionary"""
+        product = ProductFactory()
+        dict = product.serialize()
+        self.assertEqual(product.id, dict["id"])
+        self.assertEqual(product.name, dict["name"])
+        self.assertEqual(product.description, dict["description"])
+        self.assertEqual(product.price, Decimal(dict["price"]))
+        self.assertEqual(product.available, dict["available"])
+        self.assertEqual(product.category.name, dict["category"])
+
+    def test_deserialize(self):
+        """It should be able to de-serialize to the model"""
+        product = ProductFactory()
+        dict = product.serialize()
+        self.assertEqual(product, product.deserialize(dict))
+        availability = dict["available"]
+        dict["available"] = 'xyz'
+        self.assertRaises(DataValidationError, product.deserialize, dict)
+        dict.pop("available")
+        self.assertRaises(DataValidationError, product.deserialize, dict)
+        dict["available"] = availability
+        price = dict["price"]
+        dict["price"] = None
+        self.assertRaises(DataValidationError, product.deserialize, dict)
+
+    def test_find_by_price(self):
+        """It should find products by price"""
+        products = ProductFactory.create_batch(10)
+        for product in products:
+            product.create()
+        price = products[0].price
+        count = len([product for product in products if product.price == price])
+        found = Product.find_by_price(str(price))
+        self.assertEqual(found.count(), count)
+        for product in found:
+            self.assertEqual(product.price, price)
