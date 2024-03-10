@@ -42,8 +42,10 @@ You will be given partial implementations in each of these files to get you star
 
 Licensed under the Apache License. See [LICENSE](/LICENSE)
 
-## Author
+## Authors
 
 John Rofrano, Senior Technical Staff Member, DevOps Champion, @ IBM Research
+
+Anant Kataria, SDE freelance, Ex Meesho, Ex DAIICT
 
 ## <h3 align="center"> © IBM Corporation 2023. All rights reserved. <h3/>
