@@ -59,6 +59,7 @@ def step_impl(context):
         }
         context.resp = requests.post(rest_endpoint, json=payload)
         assert context.resp.status_code == HTTP_201_CREATED
+<<<<<<< HEAD
 
 @when(u'I press the "{button}" button')
 def step_impl(context, button):
@@ -90,3 +91,5 @@ def step_impl(context, name):
 def step_impl(context, name):
     element = context.driver.find_element_by_id('search_results')
     assert(name not in element.text)
+=======
+>>>>>>> 75046e6 (bug fixes)
